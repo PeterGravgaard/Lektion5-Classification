@@ -9,8 +9,8 @@ from matplotlib import pyplot as plt
 
 
 '### 1. LOAD CSV FILEN OG FJERN INDEKSERINGSKOLONNER ###'
-df = pd.read_csv('breast-cancer.csv')
-#df = df.drop('Unnamed: 0', axis=1)
+df = pd.read_csv('breast-cancer_filtered.csv')
+df = df.drop('Unnamed: 0', axis=1)
 print(df.info())
 
 '### 2. SCATTERPLOT UD FRA UDVALGTE FEATURES ###'

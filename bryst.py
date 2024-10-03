@@ -72,12 +72,29 @@ def precision_recall(y_test, y_pred):
     print('Precision:', precision)
     print('Recall:', recall)
 
+def roc_kurve(y_test, y_pred_proba):
+    fpr, tpr, thresholds = roc_curve(y_test, y_pred_proba) #Falske posetiv og true positive rates
+    roc_auc = auc(fpr, tpr) #Area under the curve
+    #Plot ROC kurve
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='blue', lw=2, label=f'ROC curve (area = {roc_auc:.2f})')
+    plt.plot([0, 1], [0, 1], color='gray', lw=2, linestyle='--')        
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver Operating Characteristic (ROC) Curve')
+    plt.legend(loc='lower right')
+    plt.show()
+    
+    
 #Træner på model
 model = LogisticRegression()
 model.fit(X_train, y_train)
 
 # Gætte tid
 y_pred = model.predict(X_test)
+y_proba = model.predict_proba(X_test)[:, 1] #Sandsynlighed for 1 (Ondsindet)
 
 #confusion_matrix_plot(y_test, y_pred)
 #plot_histogram(df)
@@ -86,6 +103,8 @@ y_pred = model.predict(X_test)
 #print(df.info())
 precision_recall(y_test, y_pred)
 sensitivity_specificity(y_test, y_pred)
+
+roc_kurve(y_test, y_proba)
 
 """ #Anvend log-transformation på en feature for at håndtere skæv fordeling
     df['feature_name'] = np.log1p(df['feature_name'])
