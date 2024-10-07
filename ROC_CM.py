@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.metrics import roc_auc_score, roc_curve, auc, confusion_matrix
-from sklearn.model_selection import train_test_split
+from sklearn .model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
